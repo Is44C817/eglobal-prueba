@@ -3,6 +3,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { Sale } from '../../interfaces/sale';
+
 @Component({
   selector: 'app-sales-form',
   standalone: true,
@@ -56,6 +57,67 @@ export class SalesForm {
     };
   }
 
+  onNameInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+
+    input.value = input.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\s]/g, '');
+
+    this.sale.name = input.value;
+  }
+
+  onAmountInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+
+    let value = input.value;
+
+    value = value.replace(/[^0-9.]/g, '');
+
+    const parts = value.split('.');
+
+    if (parts.length > 2) {
+      value = `${parts[0]}.${parts.slice(1).join('')}`;
+    }
+
+    if (parts[1]?.length > 2) {
+      value = `${parts[0]}.${parts[1].substring(0, 2)}`;
+    }
+
+    input.value = value;
+
+    this.sale.amount = value ? Number(value) : null;
+  }
+
+  onCardInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+
+    const value = input.value.replace(/\D/g, '').substring(0, 16);
+
+    input.value = value;
+    this.sale.card = value;
+  }
+
+  onExpirationInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+
+    let value = input.value.replace(/\D/g, '').substring(0, 4);
+
+    if (value.length > 2) {
+      value = `${value.substring(0, 2)}/${value.substring(2)}`;
+    }
+
+    input.value = value;
+    this.sale.expiration = value;
+  }
+
+  onCvvInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+
+    const value = input.value.replace(/\D/g, '').substring(0, 3);
+
+    input.value = value;
+    this.sale.cvv = value;
+  }
+
   private generateId(): string {
     if (!isPlatformBrowser(this.platformId)) {
       return '001';
@@ -70,11 +132,13 @@ export class SalesForm {
     return nextId.toString().padStart(3, '0');
   }
 
-  private getCurrentDate(): string {
+   getCurrentDate(): string {
     const date = new Date();
 
     const day = date.getDate().toString().padStart(2, '0');
+
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
+
     const year = date.getFullYear();
 
     return `${day}/${month}/${year}`;

@@ -12,7 +12,6 @@
   </div>
 
   <div class="sales-card">
-
     <h3>Registrar Venta</h3>
 
     <form (ngSubmit)="registerSale()">
@@ -30,6 +29,8 @@
             name="name"
             placeholder="Nombre completo"
             [(ngModel)]="sale.name"
+            (input)="onNameInput($event)"
+            autocomplete="off"
             required
           />
         </div>
@@ -41,12 +42,12 @@
 
           <input
             id="amount"
-            type="number"
+            type="text"
             name="amount"
-            placeholder="$ 0.00"
-            min="1"
-            step="0.01"
+            placeholder="0.00"
+            inputmode="decimal"
             [(ngModel)]="sale.amount"
+            (input)="onAmountInput($event)"
             required
           />
         </div>
@@ -60,10 +61,12 @@
             id="card"
             type="text"
             name="card"
-            placeholder="1234 5678 9012 3456"
+            placeholder="1234567890123456"
             maxlength="16"
             inputmode="numeric"
             [(ngModel)]="sale.card"
+            (input)="onCardInput($event)"
+            autocomplete="off"
             required
           />
         </div>
@@ -79,7 +82,10 @@
             name="expiration"
             placeholder="MM/AA"
             maxlength="5"
+            inputmode="numeric"
             [(ngModel)]="sale.expiration"
+            (input)="onExpirationInput($event)"
+            autocomplete="off"
             required
           />
         </div>
@@ -97,16 +103,19 @@
             maxlength="3"
             inputmode="numeric"
             [(ngModel)]="sale.cvv"
+            (input)="onCvvInput($event)"
+            autocomplete="off"
             required
           />
         </div>
 
         <div class="form-group">
-          <label>
+          <label for="type">
             Tipo de operación
           </label>
 
           <input
+            id="type"
             type="text"
             value="Venta"
             readonly
@@ -114,13 +123,14 @@
         </div>
 
         <div class="form-group">
-          <label>
+          <label for="date">
             Fecha
           </label>
 
           <input
+            id="date"
             type="text"
-            value="Automática"
+            [value]="getCurrentDate()"
             readonly
           />
         </div>
@@ -137,7 +147,5 @@
       </div>
 
     </form>
-
   </div>
-
 </div>
