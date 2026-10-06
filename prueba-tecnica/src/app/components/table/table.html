@@ -1,3 +1,6 @@
+<app-sales-form
+(saleCreated)="addSale($event)"></app-sales-form>
+
 <div class="table-responsive">
   <table class="table transaction-table align-middle">
 
@@ -20,66 +23,31 @@
 
     <tbody>
 
+@for (sale of sales; track sale.id) {
       <tr>
-        <th scope="row">001</th>
+        <th scope="row">
+          {{ sale.id }}
+        </th>
 
         <td>
           <span class="transaction-badge sale">
-            Venta
+            {{ sale.type }}
           </span>
         </td>
 
-        <td>$1,200</td>
-        <td>Jorge Ramirez</td>
-        <td>1234****1234</td>
-        <td>12/28</td>
-        <td>123</td>
-        <td>05/10/2026</td>
+        <td>${{ sale.amount | number:'1.2-2' }}</td>
+        <td>{{ sale.name }}</td>
+        <td>{{ sale.card }}</td>
+        <td>{{ sale.expiration }}</td>
+        <td>{{ sale.cvv }}</td>
+        <td>{{ sale.date }}</td>
 
         @if (isSupervisor()) {
           <td>000990921</td>
         }
       </tr>
 
-      @if (isSupervisor()) {
-        <tr>
-          <th scope="row">002</th>
-
-          <td>
-            <span class="transaction-badge refund">
-              Devolución
-            </span>
-          </td>
-
-          <td>$1,200</td>
-          <td>Jorge Ramirez</td>
-          <td>1234****1234</td>
-          <td>12/28</td>
-          <td>123</td>
-          <td>05/10/2026</td>
-          <td>000990921</td>
-        </tr>
-      }
-
-      @if (isSupervisor()) {
-        <tr>
-          <th scope="row">003</th>
-
-          <td>
-            <span class="transaction-badge cancellation">
-              Cancelación
-            </span>
-          </td>
-
-          <td>$1,200</td>
-          <td>Jorge Ramirez</td>
-          <td>1234****1234</td>
-          <td>12/28</td>
-          <td>123</td>
-          <td>05/10/2026</td>
-          <td>000990921</td>
-        </tr>
-      }
+    }
 
     </tbody>
 

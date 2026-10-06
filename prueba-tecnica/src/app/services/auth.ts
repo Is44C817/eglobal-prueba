@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, PLATFORM_ID, inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Observable } from 'rxjs';
 
 import { LoginRequest } from '../interfaces/login-request';
@@ -10,6 +11,7 @@ import { LoginResponse } from '../interfaces/login-response';
 })
 export class Auth {
   private readonly apiUrl = 'http://localhost:3000';
+  private readonly platformId = inject(PLATFORM_ID);
 
   constructor(private readonly http: HttpClient) {}
 
@@ -18,14 +20,26 @@ export class Auth {
   }
 
   saveToken(token: string): void {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
     localStorage.setItem('token', token);
   }
 
   getToken(): string | null {
+    if (!isPlatformBrowser(this.platformId)) {
+      return null;
+    }
+
     return localStorage.getItem('token');
   }
 
   logout(): void {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
     localStorage.removeItem('token');
   }
 
