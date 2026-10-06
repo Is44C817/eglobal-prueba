@@ -11,7 +11,10 @@
         <th scope="col">Expiración</th>
         <th scope="col">CVV</th>
         <th scope="col">Fecha</th>
-        <th scope="col">Referencia</th> <!-- Operador no puede ver este th y solo ve tipo Venta -->
+
+        @if (isSupervisor()) {
+          <th scope="col">Referencia</th> <!-- Operador no puede ver este th y solo ve tipo Venta -->
+        }
       </tr>
     </thead>
 
@@ -32,45 +35,53 @@
         <td>12/28</td>
         <td>123</td>
         <td>05/10/2026</td>
-        <td>000990921</td>
+
+        @if (isSupervisor()) {
+          <td>000990921</td>
+        }
       </tr>
 
-      <tr>
-        <th scope="row">002</th>
+      @if (isSupervisor()) {
+        <tr>
+          <th scope="row">002</th>
 
-        <td>
-          <span class="transaction-badge refund">
-            Devolución
-          </span>
-        </td>
+          <td>
+            <span class="transaction-badge refund">
+              Devolución
+            </span>
+          </td>
 
-        <td>$1,200</td>
-        <td>Jorge Ramirez</td>
-        <td>1234****1234</td>
-        <td>12/28</td>
-        <td>123</td>
-        <td>05/10/2026</td>
-        <td>000990921</td>
-      </tr>
+          <td>$1,200</td>
+          <td>Jorge Ramirez</td>
+          <td>1234****1234</td>
+          <td>12/28</td>
+          <td>123</td>
+          <td>05/10/2026</td>
+          <td>000990921</td>
+        </tr>
+      }
 
-      <tr>
-        <th scope="row">003</th>
+      @if (isSupervisor()) {
+        <tr>
+          <th scope="row">003</th>
 
-        <td>
-          <span class="transaction-badge cancellation">
-            Cancelación
-          </span>
-        </td>
+          <td>
+            <span class="transaction-badge cancellation">
+              Cancelación
+            </span>
+          </td>
 
-        <td>$1,200</td>
-        <td>Jorge Ramirez</td>
-        <td>1234****1234</td>
-        <td>12/28</td>
-        <td>123</td>
-        <td>05/10/2026</td>
-        <td>000990921</td>
-      </tr>
+          <td>$1,200</td>
+          <td>Jorge Ramirez</td>
+          <td>1234****1234</td>
+          <td>12/28</td>
+          <td>123</td>
+          <td>05/10/2026</td>
+          <td>000990921</td>
+        </tr>
+      }
 
     </tbody>
+
   </table>
 </div>
