@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { DecimalPipe } from '@angular/common';
+
 import { Auth } from '../../services/auth';
 import { SalesForm } from '../sales-form/sales-form';
 import { Sale } from '../../interfaces/sale';
 import { Sales } from '../../services/sales';
-import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-table',
@@ -12,7 +13,7 @@ import { DecimalPipe } from '@angular/common';
   templateUrl: './table.html',
   styleUrl: './table.css',
 })
-export class Table {
+export class Table implements OnInit {
   role: string | null = null;
 
   sales: Sale[] = [];
@@ -20,8 +21,25 @@ export class Table {
   constructor(
     private readonly auth: Auth,
     private readonly salesService: Sales,
+    private readonly cdr: ChangeDetectorRef,
   ) {
     this.role = this.auth.getRole();
+  }
+
+  ngOnInit(): void {
+    this.loadSales();
+  }
+
+  private loadSales(): void {
+    this.salesService.getSales().subscribe({
+      next: (sales: Sale[]) => {
+        this.sales = [...sales];
+        this.cdr.detectChanges();
+      },
+      error: (error: unknown) => {
+        console.error('Error al consultar ventas:', error);
+      },
+    });
   }
 
   isOperator(): boolean {
@@ -34,13 +52,11 @@ export class Table {
 
   addSale(sale: Sale): void {
     this.salesService.createSale(sale).subscribe({
-      next: (createdSale) => {
-        this.sales.push(createdSale);
-
+      next: () => {
         alert('Venta registrada correctamente');
+        this.loadSales();
       },
-
-      error: (error) => {
+      error: (error: any) => {
         console.error('Error al registrar venta:', error);
 
         if (error.status === 400) {
