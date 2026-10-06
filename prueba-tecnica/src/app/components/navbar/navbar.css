@@ -1,0 +1,14 @@
+.btn-color-exit {
+    border: 1px solid #004481;
+    color: #004481;
+}
+
+.btn-color-exit:hover {
+    border: 1px solid #004481;
+    background-color: #004481;
+    color: #FFFFFF;
+}
+
+.color-text {
+    color: #004481;
+}
