@@ -1,0 +1,58 @@
+.transaction-table {
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.transaction-table thead {
+  background-color: #004481;
+  color: #ffffff;
+}
+
+.transaction-table thead th {
+  background-color: #004481;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 14px 12px;
+  border: none;
+  white-space: nowrap;
+}
+
+.transaction-table tbody td,
+.transaction-table tbody th {
+  padding: 14px 12px;
+  font-size: 14px;
+  color: #344054;
+  border-bottom: 1px solid #eaecf0;
+}
+
+.transaction-table tbody tr:hover {
+  background-color: #f8fafc;
+}
+
+.transaction-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.transaction-badge.sale {
+  background-color: #d1fadf;
+  color: #027a48;
+}
+
+.transaction-badge.refund {
+  background-color: #dbeafe;
+  color: #175cd3;
+}
+
+.transaction-badge.cancellation {
+  background-color: #fee4e2;
+  color: #b42318;
+}

@@ -1,0 +1,76 @@
+<div class="table-responsive">
+  <table class="table transaction-table align-middle">
+
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Tipo</th> <!-- Venta (Operador) Cancelaciones y devoluciones (Supervisor)-->
+        <th scope="col">Importe</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Tarjeta</th>
+        <th scope="col">Expiración</th>
+        <th scope="col">CVV</th>
+        <th scope="col">Fecha</th>
+        <th scope="col">Referencia</th> <!-- Operador no puede ver este th y solo ve tipo Venta -->
+      </tr>
+    </thead>
+
+    <tbody>
+
+      <tr>
+        <th scope="row">001</th>
+
+        <td>
+          <span class="transaction-badge sale">
+            Venta
+          </span>
+        </td>
+
+        <td>$1,200</td>
+        <td>Jorge Ramirez</td>
+        <td>1234****1234</td>
+        <td>12/28</td>
+        <td>123</td>
+        <td>05/10/2026</td>
+        <td>000990921</td>
+      </tr>
+
+      <tr>
+        <th scope="row">002</th>
+
+        <td>
+          <span class="transaction-badge refund">
+            Devolución
+          </span>
+        </td>
+
+        <td>$1,200</td>
+        <td>Jorge Ramirez</td>
+        <td>1234****1234</td>
+        <td>12/28</td>
+        <td>123</td>
+        <td>05/10/2026</td>
+        <td>000990921</td>
+      </tr>
+
+      <tr>
+        <th scope="row">003</th>
+
+        <td>
+          <span class="transaction-badge cancellation">
+            Cancelación
+          </span>
+        </td>
+
+        <td>$1,200</td>
+        <td>Jorge Ramirez</td>
+        <td>1234****1234</td>
+        <td>12/28</td>
+        <td>123</td>
+        <td>05/10/2026</td>
+        <td>000990921</td>
+      </tr>
+
+    </tbody>
+  </table>
+</div>
