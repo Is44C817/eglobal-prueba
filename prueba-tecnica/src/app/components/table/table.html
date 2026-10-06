@@ -1,7 +1,7 @@
 <app-sales-form
 (saleCreated)="addSale($event)"></app-sales-form>
 
-<div class="table-responsive">
+<div class="table-responsive table-container">
   
   <table class="table transaction-table align-middle">
 
@@ -22,9 +22,15 @@
       </tr>
     </thead>
 
-    <tbody>
-
-@for (sale of sales; track sale.id) {
+<tbody>
+  @if (sales.length === 0) {
+    <tr>
+      <td colspan="8" class="empty-state">
+        No hay registros disponibles.
+      </td>
+    </tr>
+  } @else {
+    @for (sale of sales; track sale.id) {
       <tr>
         <th scope="row">
           {{ sale.id }}
@@ -47,10 +53,9 @@
           <td>000990921</td>
         }
       </tr>
-
     }
-
-    </tbody>
+  }
+</tbody>
 
   </table>
 </div>

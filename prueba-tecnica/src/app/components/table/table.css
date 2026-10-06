@@ -56,3 +56,15 @@
   background-color: #fee4e2;
   color: #b42318;
 }
+
+.empty-state {
+  text-align: center;
+  padding: 40px 20px !important;
+  color: #667085 !important;
+  font-size: 14px !important;
+  background-color: #ffffff;
+}
+
+.table-container {
+  padding: 32px;
+}
