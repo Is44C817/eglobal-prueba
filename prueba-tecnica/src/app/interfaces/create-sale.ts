@@ -1,4 +1,4 @@
-export interface Sale {
+export interface CreateSale {
   id: string;
   type: 'Venta';
   amount: number;
@@ -7,8 +7,4 @@ export interface Sale {
   expiration: string;
   cvv: string;
   date: string;
-
-  cardMasked?: string;
-  expirationDisplay?: string;
-  cvvMasked?: string;
 }

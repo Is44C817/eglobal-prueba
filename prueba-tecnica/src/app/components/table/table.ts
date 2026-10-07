@@ -16,7 +16,6 @@ import { Sales } from '../../services/sales';
 })
 export class Table implements OnInit {
   role: string | null = null;
-
   sales: Sale[] = [];
 
   constructor(
@@ -45,6 +44,7 @@ export class Table implements OnInit {
           title: 'Error',
           text: 'No fue posible consultar las ventas.',
           confirmButtonText: 'Aceptar',
+          confirmButtonColor: '#004481',
         });
       },
     });
@@ -61,14 +61,16 @@ export class Table implements OnInit {
   addSale(sale: Sale): void {
     this.salesService.createSale(sale).subscribe({
       next: () => {
+        // Se vuelve a consultar el backend para mantener
+        // la tabla sincronizada con Mockoon.
+        this.loadSales();
+
         Swal.fire({
           icon: 'success',
           title: 'Venta registrada',
           text: 'La venta se registró correctamente.',
           confirmButtonText: 'Aceptar',
           confirmButtonColor: '#004481',
-        }).then(() => {
-          this.loadSales();
         });
       },
 

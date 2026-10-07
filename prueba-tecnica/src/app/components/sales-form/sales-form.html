@@ -14,7 +14,7 @@
   <div class="sales-card">
     <h3>Registrar Venta</h3>
 
-    <form (ngSubmit)="registerSale()">
+    <form (ngSubmit)="registerSale()" autocomplete="off">
 
       <div class="form-grid">
 
@@ -57,18 +57,18 @@
             Número de tarjeta
           </label>
 
-          <input
+            <input
             id="card"
             type="text"
             name="card"
             placeholder="1234567890123456"
             maxlength="16"
             inputmode="numeric"
+            autocomplete="off"
             [(ngModel)]="sale.card"
             (input)="onCardInput($event)"
-            autocomplete="off"
             required
-          />
+            />
         </div>
 
         <div class="form-group">

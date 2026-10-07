@@ -22,40 +22,61 @@
       </tr>
     </thead>
 
-<tbody>
-  @if (sales.length === 0) {
-    <tr>
-      <td colspan="8" class="empty-state">
-        No hay registros disponibles.
-      </td>
-    </tr>
-  } @else {
-    @for (sale of sales; track sale.id) {
-      <tr>
-        <th scope="row">
-          {{ sale.id }}
-        </th>
+ <tbody>
+      @if (sales.length === 0) {
+        <tr>
+          <td
+            [attr.colspan]="isSupervisor() ? 9 : 8"
+            class="empty-state">
+            No hay registros disponibles.
+          </td>
+        </tr>
+      } @else {
+        @for (sale of sales; track sale.id) {
+          <tr>
+            <th scope="row">
+              {{ sale.id }}
+            </th>
 
-        <td>
-          <span class="transaction-badge sale">
-            {{ sale.type }}
-          </span>
-        </td>
+            <td>
+              <span class="transaction-badge sale">
+                {{ sale.type }}
+              </span>
+            </td>
 
-        <td>${{ sale.amount | number:'1.2-2' }}</td>
-        <td>{{ sale.name }}</td>
-        <td>{{ sale.card }}</td>
-        <td>{{ sale.expiration }}</td>
-        <td>{{ sale.cvv }}</td>
-        <td>{{ sale.date }}</td>
+            <td>
+              ${{ sale.amount | number:'1.2-2' }}
+            </td>
 
-        @if (isSupervisor()) {
-          <td>000990921</td>
+            <td>
+              {{ sale.name }}
+            </td>
+
+            <td>
+              {{ sale.card }}
+            </td>
+
+            <td>
+              {{ sale.expiration }}
+            </td>
+
+            <td>
+              {{ sale.cvv }}
+            </td>
+
+            <td>
+              {{ sale.date }}
+            </td>
+
+            @if (isSupervisor()) {
+              <td>
+                000990921
+              </td>
+            }
+          </tr>
         }
-      </tr>
-    }
-  }
-</tbody>
+      }
+    </tbody>
 
   </table>
 </div>
