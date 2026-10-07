@@ -1,7 +1,7 @@
+import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, PLATFORM_ID, inject } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 
 import { LoginRequest } from '../interfaces/login-request';
 import { LoginResponse } from '../interfaces/login-response';
@@ -13,9 +13,33 @@ export class Auth {
   private readonly apiUrl = 'http://localhost:3000';
   private readonly platformId = inject(PLATFORM_ID);
 
+  private readonly users = [
+    {
+      username: 'operador@operador.com',
+      password: '123456',
+    },
+    {
+      username: 'supervisor@supervisor.com',
+      password: '123456',
+    },
+  ];
+
   constructor(private readonly http: HttpClient) {}
 
   login(request: LoginRequest): Observable<LoginResponse> {
+    const user = this.users.find(
+      (item) => item.username === request.username && item.password === request.password,
+    );
+
+    if (!user) {
+      return throwError(() => ({
+        status: 400,
+        error: {
+          message: 'Usuario o contraseña incorrectos',
+        },
+      }));
+    }
+
     return this.http.post<LoginResponse>(`${this.apiUrl}/login`, request);
   }
 
@@ -52,7 +76,6 @@ export class Auth {
 
     try {
       const payload = token.split('.')[1];
-
       const decodedPayload = JSON.parse(atob(payload));
 
       return decodedPayload.role;
