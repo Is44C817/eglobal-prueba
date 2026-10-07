@@ -1,23 +1,40 @@
 import { Routes } from '@angular/router';
 
+import { Login } from './components/login/login';
+import { Table } from './components/table/table';
+import { CancellationForm } from './components/cancellation-form/cancellation-form';
+import { roleGuard } from './guards/role.guard';
+
 export const routes: Routes = [
   {
     path: '',
     redirectTo: 'login',
     pathMatch: 'full',
   },
+
   {
     path: 'login',
-    loadComponent: () => import('./components/login/login').then((m) => m.Login),
+    component: Login,
   },
+
   {
     path: 'main',
-    loadComponent: () => import('./interfaces/main/main').then((m) => m.Main),
+    component: Table,
+    canActivate: [roleGuard],
+    data: {
+      roles: ['operador'],
+    },
   },
+
   {
     path: 'cancellations',
-    loadComponent: () => import('./components/cancellation-form/cancellation-form').then((m) => m.CancellationForm),
+    component: CancellationForm,
+    canActivate: [roleGuard],
+    data: {
+      roles: ['supervisor'],
+    },
   },
+
   {
     path: '**',
     redirectTo: 'login',
