@@ -1,0 +1,187 @@
+.operation-container {
+  padding: 30px;
+  background-color: #f5f7fa;
+  min-height: calc(100vh - 70px);
+}
+
+.operation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.operation-header h2 {
+  margin: 0;
+  color: #344054;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.operation-header p {
+  margin: 8px 0 0;
+  color: #667085;
+}
+
+.role-badge {
+  background-color: #004481;
+  color: #ffffff;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.operation-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 2px 8px rgba(16, 24, 40, 0.08);
+}
+
+.operation-card-header {
+  margin-bottom: 25px;
+}
+
+.operation-card-header h3 {
+  margin: 0;
+  color: #344054;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.operation-card-header p {
+  margin: 6px 0 0;
+  color: #667085;
+  font-size: 14px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 8px;
+  color: #344054;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  height: 48px;
+  padding: 0 14px;
+  border: 1px solid #d0d5dd;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: #344054;
+  font-size: 15px;
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #004481;
+  box-shadow: 0 0 0 3px rgba(0, 68, 129, 0.12);
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 30px;
+}
+
+.register-button {
+  min-width: 220px;
+  height: 48px;
+  border: none;
+  border-radius: 8px;
+  background-color: #004481;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.register-button:hover {
+  background-color: #00345f;
+}
+
+@media (max-width: 768px) {
+  .operation-container {
+    padding: 20px;
+  }
+
+  .operation-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .button-container {
+    justify-content: stretch;
+  }
+
+  .register-button {
+    width: 100%;
+  }
+}
+
+.result-card {
+  margin-top: 24px;
+}
+
+.transaction-details {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px;
+  background-color: #f8fafc;
+  border-radius: 8px;
+}
+
+.detail-item span {
+  font-size: 12px;
+  color: #667085;
+}
+
+.detail-item strong {
+  font-size: 14px;
+  color: #344054;
+}
+
+.register-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .transaction-details {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .transaction-details {
+    grid-template-columns: 1fr;
+  }
+}

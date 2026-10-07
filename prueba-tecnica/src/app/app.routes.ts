@@ -15,6 +15,10 @@ export const routes: Routes = [
     loadComponent: () => import('./interfaces/main/main').then((m) => m.Main),
   },
   {
+    path: 'cancellations',
+    loadComponent: () => import('./components/cancellation-form/cancellation-form').then((m) => m.CancellationForm),
+  },
+  {
     path: '**',
     redirectTo: 'login',
   },

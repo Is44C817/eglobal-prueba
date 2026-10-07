@@ -1,1 +1,230 @@
-<p>cancellation-form works!</p>
+<app-navbar></app-navbar>
+
+<div class="operation-container">
+
+  <div class="operation-header">
+    <div>
+      <h2>Cancelaciones y Devoluciones</h2>
+
+      <p>
+        Consulta y procesa cancelaciones o devoluciones
+        de operaciones realizadas.
+      </p>
+    </div>
+
+    <span class="role-badge">
+      Rol: Supervisor
+    </span>
+  </div>
+
+  <div class="operation-card">
+
+    <div class="operation-card-header">
+      <h3>Consultar operación</h3>
+
+      <p>
+        Ingresa los datos de la operación que deseas consultar.
+      </p>
+    </div>
+
+    <form
+      (ngSubmit)="searchOperation()"
+      autocomplete="off"
+    >
+
+      <div class="form-grid">
+
+        <div class="form-group">
+
+          <label for="financialReference">
+            Número de referencia financiera
+          </label>
+
+          <input
+            id="financialReference"
+            type="text"
+            name="financialReference"
+            placeholder="000990921"
+            inputmode="numeric"
+            autocomplete="off"
+            [(ngModel)]="operation.financialReference"
+            (input)="onReferenceInput($event)"
+            required
+          />
+
+        </div>
+
+        <div class="form-group">
+
+          <label for="card">
+            Número de tarjeta
+          </label>
+
+          <input
+            id="card"
+            type="text"
+            name="card"
+            placeholder="1234567890123456"
+            maxlength="16"
+            inputmode="numeric"
+            autocomplete="off"
+            [(ngModel)]="operation.card"
+            (input)="onCardInput($event)"
+            required
+          />
+
+        </div>
+
+      </div>
+
+      <div class="button-container">
+
+        <button
+          type="submit"
+          class="register-button"
+          [disabled]="searching"
+        >
+          {{ searching
+            ? 'Consultando...'
+            : 'Consultar operación'
+          }}
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+  @if (sale) {
+
+    <div class="operation-card result-card">
+
+      <div class="operation-card-header">
+
+        <h3>Datos de la operación</h3>
+
+        <p>
+          Verifica la información antes de procesar la operación.
+        </p>
+
+      </div>
+
+
+      <div class="transaction-details">
+
+        <div class="detail-item">
+          <span>ID</span>
+          <strong>{{ sale.id }}</strong>
+        </div>
+
+        <div class="detail-item">
+          <span>Tipo</span>
+          <strong>{{ sale.type }}</strong>
+        </div>
+
+        <div class="detail-item">
+          <span>Importe</span>
+          <strong>
+            ${{ sale.amount | number:'1.2-2' }}
+          </strong>
+        </div>
+
+        <div class="detail-item">
+          <span>Nombre</span>
+          <strong>{{ sale.name }}</strong>
+        </div>
+
+        <div class="detail-item">
+          <span>Tarjeta</span>
+          <strong>{{ sale.card }}</strong>
+        </div>
+
+        <div class="detail-item">
+          <span>Referencia financiera</span>
+          <strong>{{ sale.financialReference }}</strong>
+        </div>
+
+        <div class="detail-item">
+          <span>Fecha</span>
+          <strong>{{ sale.date }}</strong>
+        </div>
+
+      </div>
+
+      <form
+        (ngSubmit)="processOperation()"
+        autocomplete="off"
+      >
+
+        <div class="form-grid">
+
+          <div class="form-group">
+
+            <label for="approvalNumber">
+              Número de aprobación
+            </label>
+
+            <input
+              id="approvalNumber"
+              type="text"
+              name="approvalNumber"
+              placeholder="123456"
+              inputmode="numeric"
+              autocomplete="off"
+              [(ngModel)]="operation.approvalNumber"
+              (input)="onApprovalInput($event)"
+              required
+            />
+
+          </div>
+
+          <div class="form-group">
+
+            <label for="type">
+              Tipo de operación
+            </label>
+
+            <select
+              id="type"
+              name="type"
+              [(ngModel)]="operation.type"
+            >
+
+              <option value="Cancelación">
+                Cancelación
+              </option>
+
+              <option value="Devolución">
+                Devolución
+              </option>
+
+            </select>
+
+          </div>
+
+        </div>
+
+
+        <div class="button-container">
+
+          <button
+            type="submit"
+            class="register-button"
+            [disabled]="processing"
+          >
+            {{ processing
+              ? 'Procesando...'
+              : 'Procesar operación'
+            }}
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  }
+
+</div>

@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, from, map, switchMap } from 'rxjs';
+import { from, map, Observable, switchMap } from 'rxjs';
 
 import { Sale } from '../interfaces/sale';
 import { Auth } from './auth';
@@ -32,7 +32,6 @@ export class Sales {
           card,
           expiration,
           cvv,
-
           cardMasked: this.maskCard(sale.card),
           expirationDisplay: sale.expiration,
           cvvMasked: '***',
@@ -54,13 +53,24 @@ export class Sales {
         map((sales) =>
           sales.map((sale) => ({
             ...sale,
-
             card: sale.cardMasked ?? sale.card,
             expiration: sale.expirationDisplay ?? sale.expiration,
             cvv: sale.cvvMasked ?? '***',
           })),
         ),
       );
+  }
+
+  updateSale(
+    id: string,
+    data: {
+      type: 'Cancelación' | 'Devolución';
+      approvalNumber: string;
+    },
+  ): Observable<Sale> {
+    return this.http.patch<Sale>(`${this.apiUrl}/sales/${id}`, data, {
+      headers: this.getHeaders(),
+    });
   }
 
   private maskCard(card: string): string {
