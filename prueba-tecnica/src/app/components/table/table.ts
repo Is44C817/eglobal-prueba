@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
+import Swal from 'sweetalert2';
 
 import { Auth } from '../../services/auth';
 import { SalesForm } from '../sales-form/sales-form';
@@ -38,6 +39,13 @@ export class Table implements OnInit {
       },
       error: (error: unknown) => {
         console.error('Error al consultar ventas:', error);
+
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'No fue posible consultar las ventas.',
+          confirmButtonText: 'Aceptar',
+        });
       },
     });
   }
@@ -53,18 +61,39 @@ export class Table implements OnInit {
   addSale(sale: Sale): void {
     this.salesService.createSale(sale).subscribe({
       next: () => {
-        alert('Venta registrada correctamente');
-        this.loadSales();
+        Swal.fire({
+          icon: 'success',
+          title: 'Venta registrada',
+          text: 'La venta se registró correctamente.',
+          confirmButtonText: 'Aceptar',
+          confirmButtonColor: '#004481',
+        }).then(() => {
+          this.loadSales();
+        });
       },
+
       error: (error: any) => {
         console.error('Error al registrar venta:', error);
 
         if (error.status === 400) {
-          alert('No fue posible registrar la venta');
+          Swal.fire({
+            icon: 'error',
+            title: 'No se pudo registrar',
+            text: 'Los datos enviados no son válidos.',
+            confirmButtonText: 'Aceptar',
+            confirmButtonColor: '#004481',
+          });
+
           return;
         }
 
-        alert(`Error HTTP: ${error.status}`);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: `Ocurrió un error al registrar la venta. Código: ${error.status}`,
+          confirmButtonText: 'Aceptar',
+          confirmButtonColor: '#004481',
+        });
       },
     });
   }
